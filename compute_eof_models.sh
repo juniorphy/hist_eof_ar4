@@ -71,6 +71,9 @@ go variance
 set viewport ul
 fill/lev=(-inf)(-0.8,0.8,0.2)(inf)/pal=inv_white_centered_junior/title="EOF1 - (\$v1)%" correl
 contour/lev=(-inf)(-0.8,0.8,0.1)(inf)/o correl ; go fland
+let co = if correl le 10 then correl else 999.
+repeat/i=1:45 (repeat/j=1:25 ( list/nohead/append/file=${MODEL}.space1.txt co ))
+
 
 let q = ANOM[d=2]
 let p = tfunc[d=3,i=2,gt=q@ASN]
@@ -78,6 +81,8 @@ go variance
 set viewport ur
 fill/lev=(-inf)(-0.8,0.8,0.2)(inf)/pal=inv_white_centered_junior/title="EOF2 - (\$v2)%" correl
 contour/lev=(-inf)(-0.8,0.8,0.1)(inf)/o correl ; go fland
+let co = if correl le 10 then correl else 999.
+repeat/i=1:45 (repeat/j=1:25 ( list/nohead/append/file=${MODEL}.space2.txt co ))
 
 let q = ANOM[d=2]
 let p = tfunc[d=3,i=3,gt=q@ASN]
@@ -174,8 +179,8 @@ go variance
 set viewport ul
 fill/lev=(-inf)(-0.8,0.8,0.1)(inf)/pal=inv_white_centered_junior/title="EOF1 - Correl - (\$v1)%" correl
 contour/lev=(-inf)(-0.8,0.8,0.1)(inf)/o correl ; go fland
-! let co = if correl le 10 then correl else 999.
-!repeat/i=1:45 (repeat/j=1:25 ( list/nohead/append/file=${MODEL}.${TRI}.space1.txt co ))
+let co = if correl le 10 then correl else 999.
+repeat/i=1:45 (repeat/j=1:25 ( list/nohead/append/file=${MODEL}.${TRI}.space1.txt co ))
 
 let q = ANOM[d=2]
 let p = tfunc[d=3,i=2,gt=q@ASN]
@@ -183,8 +188,8 @@ go variance
 set viewport ur
 fill/lev=(-inf)(-0.8,0.8,0.1)(inf)/pal=inv_white_centered_junior/title="EOF2 - Correl - (\$v2)%" correl
 contour/lev=(-inf)(-0.8,0.8,0.1)(inf)/o correl ; go fland
-! let co = if correl le 10 then correl else 999.
-!repeat/i=1:45 (repeat/j=1:25 ( list/nohead/append/file=${MODEL}.${TRI}.space2.txt co ))
+let co = if correl le 10 then correl else 999.
+repeat/i=1:45 (repeat/j=1:25 ( list/nohead/append/file=${MODEL}.${TRI}.space2.txt co ))
 
 let q = ANOM[d=2]
 let p = tfunc[d=3,i=3,gt=q@ASN]
@@ -231,7 +236,7 @@ done # TRI
 #zip ${MODEL}.zip *txt *gif
 
 cd $DIR
-ls -lrth
+#ls -lrth
 #read
 
 done  #modeld 

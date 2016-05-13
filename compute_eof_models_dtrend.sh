@@ -77,6 +77,8 @@ go variance
 fill/lev=(-inf)(-0.8,0.8,0.2)(inf)/pal=inv_white_centered_junior/title="EOF1 - (\$v1)%" correl
 contour/lev=(-inf)(-0.8,0.8,0.1)(inf)/o correl ; go fland
 frame/file=eof1.dtred.annual.${MODEL}.correl.gif
+let co = if correl le 10 then correl else 999.
+repeat/i=1:45 (repeat/j=1:25 ( list/nohead/append/file=${MODEL}.space1.txt co ))
 
 let q = ANOM[d=2]
 let p = tfunc[d=3,i=2,gt=q@ASN]
@@ -85,6 +87,8 @@ go variance
 fill/lev=(-inf)(-0.8,0.8,0.2)(inf)/pal=inv_white_centered_junior/title="EOF2 - (\$v2)%" correl
 contour/lev=(-inf)(-0.8,0.8,0.1)(inf)/o correl ; go fland
 frame/file=eof2.dtred.annual.${MODEL}.correl.gif
+let co = if correl le 10 then correl else 999.
+repeat/i=1:45 (repeat/j=1:25 ( list/nohead/append/file=${MODEL}.space2.txt co ))
 
 !inicio de comentario
 !let q = ANOM[d=2]
