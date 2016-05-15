@@ -10,7 +10,7 @@ echo MODEL $MODEL
 fin=`ls -1 tos_O1*.nc`
 echo $fin
 
-cdo setcalendar,standard -seldate,1970-12-1,1999-12-31 -remapbil,grid.ersst.atlantico.trop.nc $fin "g.errsst.$fin"
+cdo setcalendar,standard -seldate,1970-01-1,1999-12-31 -remapbil,grid.ersst.atlantico.trop.nc $fin "g.errsst.$fin"
 
 #$CDO genbil,${GRID_TARGET} ${FILEIN} weights.nc
 #$CDO remap,${GRID_TARGET},weights.nc ${FILEIN} ${FILEOUT}.T42.nc
@@ -18,7 +18,7 @@ cdo setcalendar,standard -seldate,1970-12-1,1999-12-31 -remapbil,grid.ersst.atla
 mkdir dtred
 cd dtred
 cdo detrend ../g.errsst.$fin dtred.errsst.${fin}
-
+rm -fv *space?.txt
 cat << EOF > eof.jnl 
 
 USE climatological_axes
@@ -108,22 +108,22 @@ repeat/i=1:45 (repeat/j=1:25 ( list/nohead/append/file=${MODEL}.space2.txt co ))
 
 
 !cancel viewport
-!use eof.${MODEL}.tfunc.nc
+use eof.${MODEL}.tfunc.nc
 
 
 !set viewport ul
 !plot/vlim=-3:3/title="PC1 - (\$v1)% " tfunc[i=1,d=3]
-!list/form=(f10.5)/nohead/clobber/file=PC1.${MODEL}.txt tfunc[i=1,d=3]
+list/form=(f10.5)/nohead/clobber/file=PC1.${MODEL}.txt tfunc[i=1,d=3]
 
 !set viewport ur
 !plot/vlim=-3:3/title="PC2 - (\$v2)%" tfunc[i=2,d=3]
-!list/form=(f10.5)/nohead/clobber/file=PC2.${MODEL}.txt tfunc[i=2,d=3]
+list/form=(f10.5)/nohead/clobber/file=PC2.${MODEL}.txt tfunc[i=2,d=3]
 !set viewport ll                                                                                                                 
 !plot/vlim=-3:3/title="PC3 - (\$v3)%" tfunc[i=3,d=3]
-!list/form=(f10.5)/nohead/clobber/file=PC3.${MODEL}.txt tfunc[i=3,d=3]
+list/form=(f10.5)/nohead/clobber/file=PC3.${MODEL}.txt tfunc[i=3,d=3]
 !set viewport lr                                                                                                                 
 !plot/vlim=-3:3/title="PC4 - (\$v4)%" tfunc[i=4,d=3]
-!list/form=(f10.5)/nohead/clobber/file=PC4.${MODEL}.txt tfunc[i=4,d=3]
+list/form=(f10.5)/nohead/clobber/file=PC4.${MODEL}.txt tfunc[i=4,d=3]
 !frame/file=eof.dtred.${MODEL}.pc.gif
 
 EOF
