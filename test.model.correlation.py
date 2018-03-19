@@ -17,6 +17,7 @@ def correl():
 			fmod = '{0}/run1/dtred/{0}.space{1}.txt'.format(model,eof)
 			fobs = '../../sst-data/detrend/ersst.space{0}.txt'.format(eof)
 			eof_mod = np.loadtxt(fmod)
+			print fmod
 			eof_obs = np.loadtxt(fobs)
 			#print eof_mod[0:40]
 			idm = np.where(eof_mod == 999.)
@@ -50,32 +51,21 @@ def test_signal_correl():
 		cor_eof = np.loadtxt(feof, usecols = (1,))
 		cor_pc  = np.loadtxt(fpc, usecols = (1,))
 		for ii in range(len(cor_eof)):
-			if cor_eof[ii] >=  0.5 and cor_eof[ii] > 0:
-				cook.append(['{1} - EOF {0}'.format(eof, models[ii])])
+			#if cor_eof[ii] >=  0.5 and cor_eof[ii] > 0:
+			#	cook.append(['{1} - EOF {0}'.format(eof, models[ii])])
+			#	print models[ii], cor_eof[ii]
+			#if cor_eof[ii] <= -0.5 and cor_eof[ii] < 0:
 				
-			if cor_eof[ii] <= -0.5 and cor_eof[ii] < 0:
-				
-				cook.append(['{1} - EOF {0}'.format(eof, models[ii])])
-				
+			cook.append(['{1} - EOF {0}'.format(eof, models[ii])])
+			print models[ii], cor_eof[ii]
 		cook = np.array(cook)
-		np.savetxt('modelstobeanalyzed_EOF{0}.txt'.format(eof), cook, fmt='%s')
+		#np.savetxt('modelstobeanalyzed_EOF{0}.txt'.format(eof), cook, fmt='%s')
+		np.savetxt('allmodel_EOF{0}.txt'.format(eof), cook, fmt='%s')
 		
 		print '\nEOF {0}'.format(eof)
 		
 test_signal_correl()
 
-#~ !elif \`correl le (-0.80)\` then
-#~ !    define axis/t=1:87:1 tt
-#~ !    define grid/t=tt gg    
-#~ !    file/var=oo/grid=gg "../../sst-data/PC1.${TRI}.txt"
-#~ !    file/var=mm/grid=gg "${MODEL}/run1/PC1.$TRI.$MODEL.txt"
-#~ !    l/q p=oo[d=3]
-#~ !    l/q q=mm[d=4]
-#~ !    go variance
-#~ !    list/nohead/clobber/file=time.correl.$MODEL.$TRI.txt correl
-#~ !endif
-#~ 
-#~ define axis/t=1:1125:1 xt
 #~ define grid/t=xt gg
 #~ file/var=obs/grid=gg "../../sst-data/ersst.${TRI}.space2.txt" 
 #~ file/var=mod/grid=gg "${MODEL}/run1/${MODEL}.${TRI}.space2.txt" 
